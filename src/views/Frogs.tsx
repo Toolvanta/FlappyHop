@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Check, Lock } from 'lucide-react';
 import { ContentPage } from '../components/layout/ContentPage';
 import { FrogBadge } from '../components/game/FrogBadge';
@@ -11,7 +13,6 @@ export const Frogs: React.FC = () => {
   return (
     <ContentPage
       path="/frogs"
-     
       intro="Every firefly you catch is saved. Collect enough and a new frog joins the pond. They all hop the same way, so pick whichever one makes you smile."
       wide
     >
@@ -40,7 +41,7 @@ export const Frogs: React.FC = () => {
                     type="button"
                     onClick={() => updateSettings({ frog: f.id })}
                     disabled={active}
-                    className={`btn btn-sm ${active ? 'btn-ghost' : 'btn-glow'}`}
+                    className={`btn btn-sm min-h-[44px] ${active ? 'btn-ghost' : 'btn-glow'}`}
                   >
                     {active ? (
                       <>
@@ -73,7 +74,7 @@ export const Frogs: React.FC = () => {
         <h2>Catching more fireflies</h2>
         <p>
           Most gaps have a firefly glowing right in the middle, so a run of 20 gaps can easily be worth 15 or more. Little trails of three often
-          float between the gaps too, and they’re easy to chain into a combo. There are more ideas on the <Link to="/tips">tips page</Link>.
+          float between the gaps too, and they’re easy to chain into a combo. There are more ideas on the <Link href="/tips">tips page</Link>.
         </p>
       </div>
     </ContentPage>

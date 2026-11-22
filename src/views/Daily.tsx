@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { PondGame } from '../components/game/PondGame';
 import { GamePage } from '../components/game/GamePage';
 import { dailyPond, formatCountdown, msUntilTomorrow } from '../game/progress';
@@ -23,7 +25,7 @@ export const Daily: React.FC = () => {
       game={<PondGame key={today.key} title={`Daily pond #${today.number}`} seed={today.seed} daily={{ key: today.key, number: today.number, goal: today.goal }} />}
     >
       <p className="mb-10 text-center text-sm text-muted">
-        Next pond in <span className="font-bold tabular-nums text-ink">{formatCountdown(ms)}</span>
+        Next pond in <span suppressHydrationWarning className="font-bold tabular-nums text-ink">{formatCountdown(ms)}</span>
       </p>
       <section className="prose-pond mx-auto max-w-3xl">
         <h2>One pond, everyone, every day</h2>
@@ -39,7 +41,7 @@ export const Daily: React.FC = () => {
         <h2>Share without spoilers</h2>
         <p>
           When you’re done, share your score. It says how far you got and whether you hit the goal, not what the course looks like. Fancy
-          something new instead? Hop back to the <Link to="/">endless pond</Link>.
+          something new instead? Hop back to the <Link href="/">endless pond</Link>.
         </p>
       </section>
     </GamePage>

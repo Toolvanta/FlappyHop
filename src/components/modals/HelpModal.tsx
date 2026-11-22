@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Modal } from '../ui/Modal';
 import { PondSprite, type SpriteKind } from '../game/PondSprite';
 import { FrogBadge } from '../game/FrogBadge';
@@ -30,16 +32,16 @@ export const HelpModal: React.FC<{ open: boolean; onClose: () => void }> = ({ op
     </ol>
     <p className="mt-4 text-sm text-ink-2">
       Watch out for dragonflies once you pass 15 gaps. More in the{' '}
-      <Link to="/how-to-play" onClick={onClose} className="font-bold text-water underline underline-offset-2">
+      <Link href="/how-to-play" onClick={onClose} className="font-bold text-water underline underline-offset-2">
         full guide
       </Link>{' '}
       and{' '}
-      <Link to="/tips" onClick={onClose} className="font-bold text-water underline underline-offset-2">
+      <Link href="/tips" onClick={onClose} className="font-bold text-water underline underline-offset-2">
         tips
       </Link>
       .
     </p>
-    <button type="button" className="btn btn-glow mt-5 w-full" onClick={onClose}>
+    <button type="button" className="btn btn-glow mt-5 w-full min-h-[44px]" onClick={onClose}>
       Let’s hop
     </button>
   </Modal>

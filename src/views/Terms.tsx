@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { SITE } from '../seo/site';
 
@@ -33,7 +35,7 @@ export const Terms: React.FC = () => (
 
       <h2>Privacy</h2>
       <p>
-        How we handle data is covered in the <Link to="/privacy">privacy policy</Link>.
+        How we handle data is covered in the <Link href="/privacy">privacy policy</Link>.
       </p>
 
       <h2>Changes and contact</h2>

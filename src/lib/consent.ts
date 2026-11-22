@@ -7,6 +7,7 @@ type Gtag = (...args: unknown[]) => void;
 const gtag = (): Gtag | undefined => (typeof window !== 'undefined' ? (window as unknown as { gtag?: Gtag }).gtag : undefined);
 
 export function getConsent(): ConsentChoice | null {
+  if (typeof window === 'undefined') return null;
   try {
     const v = localStorage.getItem(KEY);
     return v === 'granted' || v === 'denied' ? v : null;
@@ -16,6 +17,7 @@ export function getConsent(): ConsentChoice | null {
 }
 
 export function setConsent(choice: ConsentChoice) {
+  if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(KEY, choice);
   } catch {
@@ -26,7 +28,9 @@ export function setConsent(choice: ConsentChoice) {
 
 /** Re-open the analytics notice (used by the "Cookie settings" link). */
 export function openConsentSettings() {
-  window.dispatchEvent(new Event(CONSENT_EVENT));
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(CONSENT_EVENT));
+  }
 }
 
 /**

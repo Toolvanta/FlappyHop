@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 /** A frog peeking over a lily pad. */
 export const LogoMark: React.FC<{ className?: string }> = ({ className = 'h-10 w-10' }) => (
@@ -21,7 +21,7 @@ export const LogoMark: React.FC<{ className?: string }> = ({ className = 'h-10 w
 );
 
 export const Logo: React.FC = () => (
-  <Link to="/" className="group flex items-center gap-2" aria-label="FlappyHop home">
+  <Link href="/" className="group flex items-center gap-2" aria-label="FlappyHop home">
     <LogoMark className="h-9 w-9 sm:h-10 sm:w-10 transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6" />
     <span className="font-display text-xl font-bold tracking-tight sm:text-2xl">
       Flappy<span className="glow-text">Hop</span>

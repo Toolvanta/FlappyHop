@@ -1,4 +1,5 @@
-# Page routing (_redirects) and caching (_headers) are generated into dist/ by the build.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [build]
   command = "npm run build"
-  publish = "dist"

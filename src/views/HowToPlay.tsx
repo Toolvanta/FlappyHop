@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { DIFFICULTY } from '../game/world';
 import { FROGS } from '../game/progress';
@@ -57,11 +59,11 @@ export const HowToPlay: React.FC = () => (
 
       <h2>The daily pond</h2>
       <p>
-        <Link to="/daily">The daily pond</Link> is one course a day, the same for everyone, with a goal between 8 and 20 gaps. Try as often as you
+        <Link href="/daily">The daily pond</Link> is one course a day, the same for everyone, with a goal between 8 and 20 gaps. Try as often as you
         like. Reach the goal on consecutive days to build a streak.
       </p>
       <p>
-        Ready? <Link to="/">Start hopping</Link>, or read a few <Link to="/tips">tips</Link> first.
+        Ready? <Link href="/">Start hopping</Link>, or read a few <Link href="/tips">tips</Link> first.
       </p>
     </div>
   </ContentPage>

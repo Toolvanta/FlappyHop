@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { SITE } from '../seo/site';
 
@@ -48,7 +50,7 @@ export const About: React.FC = () => (
         </li>
       </ul>
       <p>
-        Got an idea for a new frog or something to add to the pond? <Link to="/contact">Get in touch</Link>.
+        Got an idea for a new frog or something to add to the pond? <Link href="/contact">Get in touch</Link>.
       </p>
     </div>
   </ContentPage>

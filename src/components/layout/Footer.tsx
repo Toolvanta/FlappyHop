@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { Github, Linkedin } from '../ui/BrandIcons';
 import { Logo } from './Logo';
@@ -13,7 +15,7 @@ const Column: React.FC<{ title: string; links: { to: string; label: string }[] }
     <ul className="space-y-2">
       {links.map((l) => (
         <li key={l.to}>
-          <Link to={l.to} className="text-ink-2 transition-colors hover:text-ink">
+          <Link href={l.to} className="inline-block py-1 text-ink-2 transition-colors hover:text-ink">
             {l.label}
           </Link>
         </li>
@@ -23,7 +25,7 @@ const Column: React.FC<{ title: string; links: { to: string; label: string }[] }
 );
 
 export const Footer: React.FC = () => (
-  <footer className="relative mt-24 overflow-hidden border-t border-rim bg-pond-2/70">
+  <footer className="relative mt-24 overflow-hidden border-t border-rim bg-pond-2/70" role="contentinfo">
     {/* Reeds along the bank */}
     <svg className="pointer-events-none absolute -top-px right-6 h-16 w-48 text-reed opacity-40" viewBox="0 0 192 64" aria-hidden="true">
       {[12, 30, 44, 70, 86, 120, 140, 168].map((x, i) => (
@@ -49,7 +51,7 @@ export const Footer: React.FC = () => (
               target={s.href.startsWith('mailto:') ? undefined : '_blank'}
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-rim bg-leaf text-ink transition-transform hover:-translate-y-0.5"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-rim bg-leaf text-ink transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-firefly"
             >
               {s.icon}
             </a>
@@ -64,12 +66,12 @@ export const Footer: React.FC = () => (
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p>
           © {new Date().getFullYear()} FlappyHop. Made by{' '}
-          <a href={SITE.author.url} target="_blank" rel="noopener noreferrer" className="font-bold text-ink-2 hover:text-ink">
+          <a href={SITE.author.url} target="_blank" rel="noopener noreferrer" className="font-bold text-ink-2 hover:text-ink underline underline-offset-2">
             {SITE.author.name}
           </a>
           .
         </p>
-        <button type="button" onClick={openConsentSettings} className="self-start text-left hover:text-ink sm:self-auto">
+        <button type="button" onClick={openConsentSettings} className="self-start py-1 text-left hover:text-ink sm:self-auto underline underline-offset-2">
           Cookie settings
         </button>
       </div>

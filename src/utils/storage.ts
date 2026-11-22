@@ -15,6 +15,7 @@ export interface Settings {
 export const DEFAULT_SETTINGS: Settings = { theme: 'dark', sound: true, reducedMotion: false, frog: 'pond' };
 
 function read<T>(key: string): T | null {
+  if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem(key);
     return raw ? (JSON.parse(raw) as T) : null;
@@ -24,6 +25,7 @@ function read<T>(key: string): T | null {
 }
 
 function write(key: string, value: unknown) {
+  if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
@@ -32,6 +34,7 @@ function write(key: string, value: unknown) {
 }
 
 export function loadSettings(): Settings {
+  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
   const saved = read<Partial<Settings>>(SETTINGS_KEY);
   if (saved) {
     const s = { ...DEFAULT_SETTINGS, ...saved };
@@ -53,6 +56,7 @@ export function loadSettings(): Settings {
 export const saveSettings = (s: Settings) => write(SETTINGS_KEY, s);
 
 export function loadStats(): Stats {
+  if (typeof window === 'undefined') return EMPTY_STATS;
   const saved = read<Partial<Stats>>(STATS_KEY);
   if (saved) return { ...EMPTY_STATS, ...saved, causes: { ...EMPTY_STATS.causes, ...saved.causes }, daily: { ...EMPTY_STATS.daily, ...saved.daily } };
   // Bring over the best score and totals from the first version.

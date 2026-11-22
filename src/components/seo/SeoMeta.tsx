@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { getRouteMeta } from '../../seo/routes';
 import { buildHead, type JsonLd } from '../../seo/head';
@@ -15,8 +17,7 @@ interface SeoMetaProps {
 
 /**
  * Keeps <head> in sync with the current page during client-side navigation.
- * The same tags are written into static HTML at build time (see vite.config.ts),
- * so crawlers and link previews get them without running JavaScript.
+ * In Next.js, metadata is also generated natively for SSR / search engines.
  */
 export const SeoMeta: React.FC<SeoMetaProps> = ({
   canonicalPath,
@@ -28,6 +29,7 @@ export const SeoMeta: React.FC<SeoMetaProps> = ({
   const json = JSON.stringify(structuredData ?? null);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
     const registered = getRouteMeta(canonicalPath);
     const extra = structuredData
       ? Array.isArray(structuredData)
@@ -77,7 +79,6 @@ export const SeoMeta: React.FC<SeoMetaProps> = ({
       script.textContent = JSON.stringify(block);
       document.head.appendChild(script);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canonicalPath, title, description, noindex, json]);
 
   return null;

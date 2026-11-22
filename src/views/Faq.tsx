@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { Accordion } from '../components/ui/Accordion';
 import { FAQ_ITEMS } from '../data/faq';
@@ -15,7 +17,7 @@ export const Faq: React.FC = () => (
         {SITE.author.email}
       </a>{' '}
       or see the{' '}
-      <Link to="/contact" className="font-bold text-water underline underline-offset-2">
+      <Link href="/contact" className="font-bold text-water underline underline-offset-2">
         contact page
       </Link>
       .

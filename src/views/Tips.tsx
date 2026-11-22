@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 
 const TIPS = [
@@ -34,7 +36,7 @@ export const Tips: React.FC = () => (
       </p>
       <h2>Practise on the daily pond</h2>
       <p>
-        The <Link to="/daily">daily pond</Link> is the same course all day, so it’s a great way to practise. You’ll learn where the big drops and
+        The <Link href="/daily">daily pond</Link> is the same course all day, so it’s a great way to practise. You’ll learn where the big drops and
         climbs are, and you can try a section again and again until it feels easy.
       </p>
       <h2>When you’re tired, stop</h2>

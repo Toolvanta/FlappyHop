@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { ContentPage } from '../components/layout/ContentPage';
 import { SITE } from '../seo/site';

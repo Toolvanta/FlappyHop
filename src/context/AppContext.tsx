@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { loadSettings, loadStats, resetStats, saveSettings, saveStats, type Settings } from '../utils/storage';
 import { EMPTY_STATS, recordRun, type RunOutcome, type RunRecord, type Stats } from '../game/progress';

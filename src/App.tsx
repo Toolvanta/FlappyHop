@@ -2,24 +2,24 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { Home } from './pages/Home';
+import { Home } from './views/Home';
 
 const page = <K extends string>(load: () => Promise<Record<K, React.ComponentType>>, name: K) =>
   lazy(() => load().then((m) => ({ default: m[name] })));
 
 // The home page ships in the main bundle; everything else loads on demand.
-const Daily = page(() => import('./pages/Daily'), 'Daily');
-const Frogs = page(() => import('./pages/Frogs'), 'Frogs');
-const StatsPage = page(() => import('./pages/StatsPage'), 'StatsPage');
-const HowToPlay = page(() => import('./pages/HowToPlay'), 'HowToPlay');
-const Tips = page(() => import('./pages/Tips'), 'Tips');
-const Faq = page(() => import('./pages/Faq'), 'Faq');
-const About = page(() => import('./pages/About'), 'About');
-const Contact = page(() => import('./pages/Contact'), 'Contact');
-const Privacy = page(() => import('./pages/Privacy'), 'Privacy');
-const Terms = page(() => import('./pages/Terms'), 'Terms');
-const Sitemap = page(() => import('./pages/Sitemap'), 'Sitemap');
-const NotFound = page(() => import('./pages/NotFound'), 'NotFound');
+const Daily = page(() => import('./views/Daily'), 'Daily');
+const Frogs = page(() => import('./views/Frogs'), 'Frogs');
+const StatsPage = page(() => import('./views/StatsPage'), 'StatsPage');
+const HowToPlay = page(() => import('./views/HowToPlay'), 'HowToPlay');
+const Tips = page(() => import('./views/Tips'), 'Tips');
+const Faq = page(() => import('./views/Faq'), 'Faq');
+const About = page(() => import('./views/About'), 'About');
+const Contact = page(() => import('./views/Contact'), 'Contact');
+const Privacy = page(() => import('./views/Privacy'), 'Privacy');
+const Terms = page(() => import('./views/Terms'), 'Terms');
+const Sitemap = page(() => import('./views/Sitemap'), 'Sitemap');
+const NotFound = page(() => import('./views/NotFound'), 'NotFound');
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();

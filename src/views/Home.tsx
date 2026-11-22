@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PondGame } from '../components/game/PondGame';
 import { GamePage } from '../components/game/GamePage';
@@ -111,7 +113,7 @@ export const Home: React.FC = () => {
           <h2 id="frogs-heading" className="text-3xl font-semibold sm:text-4xl">
             Seven frogs, one pond
           </h2>
-          <Link to="/frogs" className="inline-flex items-center gap-1 font-bold text-water hover:underline">
+          <Link href="/frogs" className="inline-flex items-center gap-1 font-bold text-water hover:underline">
             Meet them <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
@@ -140,7 +142,7 @@ export const Home: React.FC = () => {
           </h2>
           <p className="mt-3 text-ink-2">
             The short answers. There are{' '}
-            <Link to="/faq" className="font-bold text-water hover:underline">
+            <Link href="/faq" className="font-bold text-water hover:underline">
               a few more here
             </Link>
             .

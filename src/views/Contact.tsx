@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Mail } from 'lucide-react';
 import { ContentPage } from '../components/layout/ContentPage';
@@ -40,7 +42,7 @@ export const Contact: React.FC = () => (
           href={c.href}
           target={c.href.startsWith('mailto:') ? undefined : '_blank'}
           rel="noopener noreferrer"
-          className="lily flex flex-col p-5 transition-transform hover:-translate-y-1"
+          className="lily flex flex-col p-5 transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-firefly"
         >
           <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${c.tint}`}>
             <c.icon className="h-5 w-5" aria-hidden="true" />

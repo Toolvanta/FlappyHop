@@ -7,8 +7,8 @@
    "Moonlit pond": deep water, glowing fireflies, lotus pink and moon cream.
    Light mode is the same pond on a bright morning. */
 @theme {
-  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display, "Fredoka"), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-sans, "Nunito"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --color-pond: #eef8f1;
   --color-pond-2: #def0e4;

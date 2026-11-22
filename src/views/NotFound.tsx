@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { SeoMeta } from '../components/seo/SeoMeta';
 import { LogoMark } from '../components/layout/Logo';
 
@@ -13,10 +15,10 @@ export const NotFound: React.FC = () => (
     <h1 className="mt-8 text-4xl font-bold">Splash! Wrong lily pad</h1>
     <p className="mt-3 text-lg text-ink-2">This page doesn’t exist, or it hopped away. The pond is still right here.</p>
     <div className="mt-8 flex flex-wrap justify-center gap-3">
-      <Link to="/" className="btn btn-glow">
+      <Link href="/" className="btn btn-glow">
         Play FlappyHop
       </Link>
-      <Link to="/daily" className="btn btn-ghost">
+      <Link href="/daily" className="btn btn-ghost">
         Today’s pond
       </Link>
     </div>

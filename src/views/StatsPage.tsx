@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { useApp } from '../context/AppContext';
 import { ACHIEVEMENTS, liveStreak } from '../game/progress';
@@ -29,7 +31,7 @@ export const StatsPage: React.FC = () => {
         {tiles.map(([k, v, tint]) => (
           <div key={k} className={`rounded-[24px] p-4 ${tint}`}>
             <dt className="text-sm font-bold text-ink-2">{k}</dt>
-            <dd className="mt-1 font-display text-3xl font-bold">{v}</dd>
+            <dd suppressHydrationWarning className="mt-1 font-display text-3xl font-bold">{v}</dd>
           </div>
         ))}
       </dl>
@@ -55,7 +57,7 @@ export const StatsPage: React.FC = () => {
             })}
           </ul>
           <p className="mt-3 text-sm text-muted">
-            Lots of splashes? Remember that a lily pad below you is a free bounce. More in <Link to="/tips" className="font-bold text-water underline">tips</Link>.
+            Lots of splashes? Remember that a lily pad below you is a free bounce. More in <Link href="/tips" className="font-bold text-water underline">tips</Link>.
           </p>
         </section>
       )}
@@ -94,7 +96,7 @@ export const StatsPage: React.FC = () => {
         </h2>
         {stats.history.length === 0 ? (
           <p className="mt-4 text-ink-2">
-            No runs yet. <Link to="/" className="font-bold text-water underline underline-offset-2">Go for a hop</Link>.
+            No runs yet. <Link href="/" className="font-bold text-water underline underline-offset-2">Go for a hop</Link>.
           </p>
         ) : (
           <ul className="lily mt-4 divide-y divide-rim">
@@ -103,7 +105,7 @@ export const StatsPage: React.FC = () => {
                 <span className="font-display text-lg font-bold">{r.score}</span>
                 <span className="text-ink-2">✨ {r.flies}</span>
                 {r.daily && <span className="chip !h-6">Daily</span>}
-                <span className="ml-auto text-muted">{new Date(r.at).toLocaleDateString()}</span>
+                <span suppressHydrationWarning className="ml-auto text-muted">{new Date(r.at).toLocaleDateString()}</span>
               </li>
             ))}
           </ul>

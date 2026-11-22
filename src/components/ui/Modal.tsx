@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
@@ -18,6 +20,11 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, title, subtitle, ch
   const panelRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -28,36 +35,38 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, title, subtitle, ch
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onCloseRef.current();
     };
-    document.addEventListener('keydown', onKey);
+    window.addEventListener('keydown', onKey);
     return () => {
-      document.removeEventListener('keydown', onKey);
       document.body.style.overflow = overflow;
-      previous?.focus?.();
+      window.removeEventListener('keydown', onKey);
+      previous?.focus();
     };
   }, [open]);
 
-  if (!open || typeof document === 'undefined') return null;
+  if (!open || !mounted || typeof document === 'undefined') return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-end justify-center overflow-y-auto p-3 sm:items-center sm:p-6" role="presentation">
-      <div className="animate-fade-in fixed inset-0 bg-[#04121a]/60 backdrop-blur-sm" aria-hidden="true" onClick={onClose} />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div className="animate-fade-in fixed inset-0 bg-ink/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div
         ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
         tabIndex={-1}
-        className="lily animate-rise-in relative max-h-[calc(100dvh-1.5rem)] w-full max-w-md overflow-y-auto p-6 outline-none sm:p-7"
+        className="lily animate-pop relative w-full max-w-lg overflow-hidden p-6 sm:p-7 focus:outline-none"
       >
-        <div className="mb-5 flex items-start justify-between gap-4">
+        <div className="mb-4 flex items-start justify-between gap-4">
           <div>
-            <h2 id="modal-title" className="text-xl font-bold">
+            <h2 id="modal-title" className="text-2xl font-semibold">
               {title}
             </h2>
             {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
           </div>
-          <button type="button" onClick={onClose} className="-mr-2 -mt-1 rounded-full p-2 text-muted transition-colors hover:bg-pond-2 hover:text-ink" aria-label="Close">
-            <X className="h-5 w-5" />
+          <button
+            type="button"
+            onClick={onClose}
+            className="-mr-2 -mt-1 flex h-11 w-11 items-center justify-center rounded-full text-muted transition-colors hover:bg-pond-2 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-firefly"
+            aria-label="Close dialog"
+          >
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
         {children}

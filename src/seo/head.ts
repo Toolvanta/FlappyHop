@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { SITE, absoluteUrl } from './site';
 import { getBreadcrumbs, type RouteMeta } from './routes';
 
@@ -24,9 +25,25 @@ export const organizationJsonLd = (): JsonLd => ({
   '@id': ORG_ID,
   name: SITE.name,
   url: absoluteUrl('/'),
-  logo: absoluteUrl('/icon-512.png'),
-  founder: { '@type': 'Person', name: SITE.author.name, url: SITE.author.url },
-  sameAs: [SITE.author.github, SITE.author.linkedin],
+  logo: {
+    '@type': 'ImageObject',
+    url: absoluteUrl('/icon-512.png'),
+    width: 512,
+    height: 512,
+  },
+  email: SITE.author.email,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: SITE.author.email,
+    contactType: 'customer support',
+    availableLanguage: 'English',
+  },
+  founder: {
+    '@type': 'Person',
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
+  sameAs: [SITE.author.github, SITE.author.linkedin, SITE.repo],
 });
 
 export const websiteJsonLd = (): JsonLd => ({
@@ -36,7 +53,7 @@ export const websiteJsonLd = (): JsonLd => ({
   name: SITE.name,
   url: absoluteUrl('/'),
   description: SITE.defaultDescription,
-  inLanguage: 'en',
+  inLanguage: 'en-US',
   publisher: { '@id': ORG_ID },
 });
 
@@ -47,13 +64,36 @@ export const appJsonLd = (path: string, name: string, description: string): Json
   description,
   url: absoluteUrl(path),
   image: absoluteUrl(SITE.ogImage),
+  screenshot: absoluteUrl(SITE.ogImage),
   applicationCategory: 'GameApplication',
-  operatingSystem: 'Any',
-  browserRequirements: 'Requires JavaScript',
-  inLanguage: 'en',
+  applicationSubCategory: 'Casual Arcade Game',
+  operatingSystem: 'Windows, macOS, Linux, iOS, Android (All Modern Browsers)',
+  browserRequirements: 'Requires JavaScript and HTML5 Canvas',
+  inLanguage: 'en-US',
   isAccessibleForFree: true,
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  author: { '@type': 'Person', name: SITE.author.name, url: SITE.author.url },
+  genre: ['Arcade', 'Casual', 'One-Button'],
+  featureList: [
+    'One-tap hopping mechanics',
+    'Lily pad emergency bounce pads',
+    'Chaining fireflies for combo multipliers',
+    'Golden glow bug crash shields',
+    'Fast-darting dragonflies',
+    'Dynamic dusk-to-aurora sky progression',
+    'Seven collectible frogs unlocked with fireflies',
+    'Daily synchronized pond challenge',
+    'Local device progress and privacy',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  author: {
+    '@type': 'Person',
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
   publisher: { '@id': ORG_ID },
 });
 
@@ -63,7 +103,10 @@ export const faqJsonLd = (items: { question: string; answer: string }[]): JsonLd
   mainEntity: items.map((i) => ({
     '@type': 'Question',
     name: i.question,
-    acceptedAnswer: { '@type': 'Answer', text: i.answer },
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: i.answer,
+    },
   })),
 });
 
@@ -145,3 +188,65 @@ export const headToHtml = (h: HeadData): string =>
         `<script type="application/ld+json" data-seo>${JSON.stringify(j).replace(/</g, '\\u003c')}</script>`
     ),
   ].join('\n    ');
+
+/**
+ * Converts a RouteMeta definition into standard Next.js Metadata object.
+ */
+export const routeToMetadata = (
+  route: Pick<RouteMeta, 'path' | 'title' | 'description' | 'noindex' | 'keywords' | 'category'>
+): Metadata => {
+  const title = formatTitle(route.title);
+  const canonical = absoluteUrl(route.path);
+  const image = absoluteUrl(SITE.ogImage);
+  const noindex = Boolean(route.noindex);
+
+  return {
+    title,
+    description: route.description,
+    keywords: route.keywords,
+    category: route.category,
+    creator: SITE.author.name,
+    alternates: {
+      canonical,
+    },
+    robots: {
+      index: !noindex,
+      follow: true,
+      googleBot: {
+        index: !noindex,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
+    },
+    openGraph: {
+      siteName: SITE.name,
+      locale: SITE.locale,
+      type: 'website',
+      title,
+      description: route.description,
+      url: canonical,
+      images: [
+        {
+          url: image,
+          width: SITE.ogImageWidth,
+          height: SITE.ogImageHeight,
+          alt: SITE.ogImageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: route.description,
+      creator: '@shoaibmarif',
+      images: [
+        {
+          url: image,
+          alt: SITE.ogImageAlt,
+        },
+      ],
+    },
+  };
+};

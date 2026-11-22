@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ContentPage } from '../components/layout/ContentPage';
 import { INFO_LINKS, LEARN_LINKS, PLAY_LINKS } from '../components/layout/nav';
 
@@ -18,7 +20,7 @@ export const Sitemap: React.FC = () => (
           <ul className="space-y-2">
             {g.links.map((l) => (
               <li key={l.to}>
-                <Link to={l.to} className="font-bold text-ink underline decoration-rim decoration-2 underline-offset-4 hover:decoration-firefly">
+                <Link href={l.to} className="font-bold text-ink underline decoration-rim decoration-2 underline-offset-4 hover:decoration-firefly">
                   {l.label}
                 </Link>
               </li>

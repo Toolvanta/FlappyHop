@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Lock, Pause, Play, RotateCcw, Share2, Shield } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { usePond } from '../../hooks/usePond';
@@ -41,7 +43,7 @@ const TodayLine: React.FC = () => {
   const best = stats.daily.best[today.key] ?? 0;
   const streak = liveStreak(stats, today.key);
   return (
-    <Link to="/daily" className="group col-span-2 flex items-center justify-between rounded-2xl bg-pond-2 px-3 py-2.5 text-sm text-ink-2 transition-colors hover:text-ink">
+    <Link href="/daily" className="group col-span-2 flex items-center justify-between rounded-2xl bg-pond-2 px-3 py-2.5 text-sm text-ink-2 transition-colors hover:text-ink">
       <span>
         <strong className="text-ink">Daily pond #{today.number}</strong>
         <br />
@@ -155,10 +157,10 @@ export const PondGame: React.FC<PondGameProps> = ({ title, seed, daily, showDail
             <button
               type="button"
               onClick={() => setPause(true)}
-              className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur hover:bg-black/45"
-              aria-label="Pause (P)"
+              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur hover:bg-black/55 focus-visible:outline-2 focus-visible:outline-white"
+              aria-label="Pause game (P or Esc)"
             >
-              <Pause className="h-5 w-5" />
+              <Pause className="h-5 w-5" aria-hidden="true" />
             </button>
           )}
 
@@ -216,10 +218,10 @@ export const PondGame: React.FC<PondGameProps> = ({ title, seed, daily, showDail
                   </p>
                 ))}
                 <div className="mt-4 flex justify-center gap-2">
-                  <button type="button" className="btn btn-glow" onClick={again} autoFocus>
+                  <button type="button" className="btn btn-glow min-h-[44px]" onClick={again} autoFocus>
                     <RotateCcw className="h-4 w-4" aria-hidden="true" /> Again
                   </button>
-                  <button type="button" className="btn btn-ghost" onClick={share} aria-label="Share your score">
+                  <button type="button" className="btn btn-ghost h-11 w-11 !p-0" onClick={share} aria-label="Share your score">
                     <Share2 className="h-4 w-4" aria-hidden="true" />
                   </button>
                 </div>
@@ -255,7 +257,7 @@ export const PondGame: React.FC<PondGameProps> = ({ title, seed, daily, showDail
         <div className="lily p-4">
           <div className="flex items-baseline justify-between">
             <h2 className="font-display text-lg font-semibold">Your frog</h2>
-            <Link to="/frogs" className="text-sm font-bold text-water underline underline-offset-2">
+            <Link href="/frogs" className="text-sm font-bold text-water underline underline-offset-2">
               All frogs
             </Link>
           </div>
@@ -272,10 +274,10 @@ export const PondGame: React.FC<PondGameProps> = ({ title, seed, daily, showDail
                   disabled={locked}
                   onClick={() => updateSettings({ frog: f.id })}
                   title={locked ? `${f.name}: catch ${f.cost} fireflies in total to unlock` : f.name}
-                  className={`relative flex aspect-square items-center justify-center rounded-2xl border transition-transform ${
+                  className={`relative flex aspect-square min-h-[48px] min-w-[48px] items-center justify-center rounded-2xl border transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-firefly ${
                     active ? 'border-firefly bg-pond-2 shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-firefly-glow)_35%,transparent)]' : 'border-rim hover:-translate-y-0.5'
                   } ${locked ? 'opacity-45' : ''}`}
-                  aria-label={locked ? `${f.name}, locked, ${f.cost} fireflies` : f.name}
+                  aria-label={locked ? `${f.name}, locked, ${f.cost} fireflies` : `${f.name}, unlocked`}
                 >
                   <FrogBadge skin={f} size={44} />
                   {locked && <Lock className="absolute bottom-1 right-1 h-3.5 w-3.5 text-muted" aria-hidden="true" />}
